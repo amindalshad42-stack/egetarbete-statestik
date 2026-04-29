@@ -14,6 +14,4 @@ createMenu('Depression amongst Indian Students', [
 
   { name: 'cgpa', script: 'performance.js' },
   { name: 'sammanfattning', script: 'conclusion.js' },
-  { name: 'More SQL logic', script: 'initial-check-using-more-sql-logic.js' },
-  { name: 'More JS logic', script: 'initial-check-using-more-js-logic.js' },
 ]);

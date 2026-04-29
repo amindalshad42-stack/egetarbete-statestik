@@ -1,28 +1,23 @@
-import { students, initialComments } from './exports/initial-data.js';
+import { students } from './exports/initial-data.js';
+
 
 // =======================
-// Kön
+// 👥 Kön
 // =======================
 
-addMdToPage(`## Kön`);
+addMdToPage(`## 👥 Kön`);
 
-let genderResult = await dbQuery(`
-  SELECT gender, COUNT(*) as count
-  FROM student_depression
-  GROUP BY gender
-`);
+let genderCount = {};
+
+for (let s of students) {
+  let key = s.gender || "Unknown";
+  genderCount[key] = (genderCount[key] || 0) + 1;
+}
 
 let gChart = [['Gender', 'Count']];
 
-let genderRows = Array.isArray(genderResult)
-  ? genderResult
-  : genderResult.values;
-
-for (let row of genderRows) {
-  let g = row.gender ?? row[0];
-  let c = row.count ?? row[1];
-
-  gChart.push([String(g), Number(c)]);
+for (let key in genderCount) {
+  gChart.push([String(key), Number(genderCount[key])]);
 }
 
 drawGoogleChart({
@@ -37,34 +32,27 @@ I datasetet finns både män och kvinnor representerade.
 Vi ser att det finns något fler män än kvinnor.
 Detta kan påverka analysen eftersom resultatet kan spegla mäns situation mer.
 
-Viktigt: kön kan påverka hur stress och depression upplevs.
+Kön kan också påverka hur stress och depression upplevs.
 `);
 
 
 // =======================
-// Ålder
+// 🎂 Ålder
 // =======================
 
-addMdToPage(`## Ålder`);
+addMdToPage(`## 🎂 Ålder`);
 
-let ageResult = await dbQuery(`
-  SELECT age, COUNT(*) as count
-  FROM student_depression
-  GROUP BY age
-  ORDER BY age
-`);
+let ageCount = {};
+
+for (let s of students) {
+  let key = s.age || "Unknown";
+  ageCount[key] = (ageCount[key] || 0) + 1;
+}
 
 let aChart = [['Age', 'Count']];
 
-let ageRows = Array.isArray(ageResult)
-  ? ageResult
-  : ageResult.values;
-
-for (let row of ageRows) {
-  let a = row.age ?? row[0];
-  let c = row.count ?? row[1];
-
-  aChart.push([Number(a), Number(c)]);
+for (let key in ageCount) {
+  aChart.push([Number(key), Number(ageCount[key])]);
 }
 
 drawGoogleChart({
@@ -77,7 +65,7 @@ addMdToPage(`
 De flesta studenter är mellan 18 och 30 år.
 
 Det betyder att analysen främst handlar om unga vuxna,
-en grupp som ofta upplever stress från studier, framtid och ekonomi.
+en grupp som ofta upplever stress från studier och framtid.
 
-Detta är viktigt eftersom depression ofta är vanlig i denna ålder.
+Det är också en ålder där depression är relativt vanlig.
 `);
