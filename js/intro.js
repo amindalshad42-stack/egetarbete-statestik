@@ -1,6 +1,6 @@
 dbQuery.use('student-depression');
 addMdToPage(`
-# 🧠 Student Depression Analysis
+# Student Depression Analysis
 
 Denna analys undersöker vilka faktorer som påverkar depression hos studenter i Indien.
 

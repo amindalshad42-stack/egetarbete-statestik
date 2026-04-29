@@ -2,10 +2,10 @@ import { students, initialComments } from './exports/initial-data.js';
 
 
 // =======================
-// 🧬 Familjehistorik
+// Familjehistorik
 // =======================
 
-addMdToPage(`## 🧬 Familjehistorik`);
+addMdToPage(`## Familjehistorik`);
 
 let familyCount = {};
 
@@ -34,10 +34,10 @@ Detta kan öka risken för depression eftersom både arv och miljö påverkar.
 
 
 // =======================
-// ⚠️ Suicidala tankar
+// Suicidala tankar
 // =======================
 
-addMdToPage(`## ⚠️ Suicidala tankar`);
+addMdToPage(`## Suicidala tankar`);
 
 let suicideCount = {};
 

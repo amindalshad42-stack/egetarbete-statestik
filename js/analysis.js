@@ -4,7 +4,7 @@ dbQuery.use('student-depression');
 dbQuery.use('student-depression');
 
 addMdToPage(`
-# 🧠 Student Depression Analysis
+# Student Depression Analysis
 
 Vi analyserar data från ca 27 900 studenter i Indien
 för att förstå vilka faktorer som påverkar depression.
@@ -12,9 +12,9 @@ för att förstå vilka faktorer som påverkar depression.
 
 
 // =======================
-// 😴 Sleep vs Depression
+// Sleep vs Depression
 // =======================
-addMdToPage(`## 😴 Sömn och depression`);
+addMdToPage(`## Sömn och depression`);
 
 let sleepData = await dbQuery(`
   SELECT sleepDuration, depression, COUNT(*) as count
@@ -39,9 +39,9 @@ Studenter som sover mindre verkar oftare rapportera depression.
 
 
 // =======================
-// 📚 Academic Pressure
+// Academic Pressure
 // =======================
-addMdToPage(`## 📚 Academic Pressure`);
+addMdToPage(`## Academic Pressure`);
 
 let pressureData = await dbQuery(`
   SELECT academicPressure, depression, COUNT(*) as count
@@ -66,9 +66,9 @@ Högre studietryck visar tydlig koppling till depression.
 
 
 // =======================
-// 🎓 CGPA
+// CGPA
 // =======================
-addMdToPage(`## 🎓 CGPA`);
+addMdToPage(`## CGPA`);
 
 let cgpaData = await dbQuery(`
   SELECT cgpa, depression, COUNT(*) as count
@@ -93,9 +93,9 @@ Betyg verkar ha svagare påverkan än stress och sömn.
 
 
 // =======================
-// ⏱️ Work Study Hours
+// Work Study Hours
 // =======================
-addMdToPage(`## ⏱️ Studietid per dag`);
+addMdToPage(`## Studietid per dag`);
 
 let hoursData = await dbQuery(`
   SELECT workStudyHours, depression, COUNT(*) as count
@@ -120,9 +120,9 @@ Fler studietimmar per dag kan kopplas till ökad stress och depression.
 
 
 // =======================
-// 💰 Financial Stress
+// Financial Stress
 // =======================
-addMdToPage(`## 💰 Finansiell stress`);
+addMdToPage(`## Finansiell stress`);
 
 let financialData = await dbQuery(`
   SELECT financialStress, depression, COUNT(*) as count
@@ -147,9 +147,9 @@ Ekonomisk stress är en av de starkaste faktorerna.
 
 
 // =======================
-// 📊 Statistik (KRAV)
+// Statistik
 // =======================
-addMdToPage(`## 📊 Statistik`);
+addMdToPage(`## Statistik`);
 
 let cgpas = (await dbQuery(`
   SELECT cgpa FROM student_depression
@@ -165,20 +165,20 @@ addMdToPage(`
 
 
 // =======================
-// 🧠 Slutsats
+// Slutsats
 // =======================
 addMdToPage(`
-# 🔍 Slutsats
+# Slutsats
 
 De viktigaste faktorerna som påverkar depression:
 
-- 😴 Sömn
-- 📚 Studietryck
-- ⏱️ Arbetsbelastning
-- 💰 Ekonomisk stress
+- Sömn
+- Studietryck
+- Arbetsbelastning
+- Ekonomisk stress
 
-🎯 Betyg (CGPA) hade mindre påverkan.
+Betyg (CGPA) hade mindre påverkan.
 
-👉 Slutsats:
+Slutsats:
 Stress och livsstil påverkar mer än prestation.
 `);
