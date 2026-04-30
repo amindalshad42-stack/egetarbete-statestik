@@ -1,10 +1,5 @@
 import { students, initialComments } from './exports/initial-data.js';
 
-
-// =======================
-// Familjehistorik
-// =======================
-
 addMdToPage(`## Familjehistorik`);
 
 let familyCount = {};
@@ -25,17 +20,11 @@ drawGoogleChart({
   data: famChart
 });
 
-// FÖRKLARING
 addMdToPage(`
 En del studenter har en familjehistorik av psykisk ohälsa.
 
 Detta kan öka risken för depression eftersom både arv och miljö påverkar.
 `);
-
-
-// =======================
-// Suicidala tankar
-// =======================
 
 addMdToPage(`## Suicidala tankar`);
 
@@ -57,7 +46,6 @@ drawGoogleChart({
   data: sChart
 });
 
-// FÖRKLARING
 addMdToPage(`
 Vissa studenter rapporterar att de haft suicidala tankar.
 

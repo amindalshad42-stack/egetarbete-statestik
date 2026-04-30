@@ -1,29 +1,18 @@
 import { students, initialComments } from './exports/initial-data.js';
 
-
-// =======================
-// Academic Pressure
-// =======================
-
 addMdToPage(`## Studietryck`);
 
-let pressureResult = await dbQuery(`
-  SELECT academicPressure, COUNT(*) as count
-  FROM student_depression
-  GROUP BY academicPressure
-`);
+let pressureCount = {};
+
+for (let s of students) {
+  let key = s.academicPressure || "Unknown";
+  pressureCount[key] = (pressureCount[key] || 0) + 1;
+}
 
 let pChart = [['Pressure', 'Count']];
 
-let pressureRows = Array.isArray(pressureResult)
-  ? pressureResult
-  : pressureResult.values;
-
-for (let row of pressureRows) {
-  let p = row.academicPressure ?? row[0];
-  let c = row.count ?? row[1];
-
-  pChart.push([Number(p), Number(c)]);
+for (let key in pressureCount) {
+  pChart.push([Number(key), Number(pressureCount[key])]);
 }
 
 drawGoogleChart({
@@ -33,37 +22,33 @@ drawGoogleChart({
 
 // FÖRKLARING
 addMdToPage(`
-Många studenter upplever högt studietryck.
+Många studenter upplever olika nivåer av studietryck.
 
-Höga krav och press från studier kan leda till stress,
+Vi ser att vissa nivåer (t.ex. 3–5) är vanligare,
+vilket tyder på att många känner sig ganska eller mycket stressade.
+
+Höga krav från studier kan leda till press och oro,
 vilket är en viktig faktor bakom depression.
-1 betyder att man är lite orolig, 3 betyder att man är sisådär och 5 betyder att man är väldigt oroliogt.
+
+Skalan betyder:
+1 = låg stress  
+3 = medel  
+5 = hög stress
 `);
-
-
-// =======================
-// Financial Stress
-// =======================
 
 addMdToPage(`## Ekonomisk stress`);
 
-let financialResult = await dbQuery(`
-  SELECT financialStress, COUNT(*) as count
-  FROM student_depression
-  GROUP BY financialStress
-`);
+let financialCount = {};
+
+for (let s of students) {
+  let key = s.financialStress || "Unknown";
+  financialCount[key] = (financialCount[key] || 0) + 1;
+}
 
 let fChart = [['Stress', 'Count']];
 
-let financialRows = Array.isArray(financialResult)
-  ? financialResult
-  : financialResult.values;
-
-for (let row of financialRows) {
-  let f = row.financialStress ?? row[0];
-  let c = row.count ?? row[1];
-
-  fChart.push([Number(f), Number(c)]);
+for (let key in financialCount) {
+  fChart.push([Number(key), Number(financialCount[key])]);
 }
 
 drawGoogleChart({
@@ -75,6 +60,13 @@ drawGoogleChart({
 addMdToPage(`
 Ekonomisk stress är vanligt bland studenter.
 
+Vi ser att flera studenter ligger på högre nivåer av stress,
+vilket visar att ekonomi är ett viktigt problem.
+
 Problem med pengar kan skapa oro och påverka den mentala hälsan negativt.
-1 betyder att man är lite orolig, 3 betyder att man är sisådär och 5 betyder att man är väldigt oroliogt.
+
+Skalan betyder:
+1 = låg stress  
+3 = medel  
+5 = hög stress
 `);

@@ -1,29 +1,18 @@
 import { students, initialComments } from './exports/initial-data.js';
 
-
-// =======================
-// Sömn
-// =======================
-
 addMdToPage(`## Sömn`);
 
-let sleepResult = await dbQuery(`
-  SELECT sleepDuration, COUNT(*) as count
-  FROM student_depression
-  GROUP BY sleepDuration
-`);
+let sleepCount = {};
+
+for (let s of students) {
+  let key = s.sleepDuration || "Unknown";
+  sleepCount[key] = (sleepCount[key] || 0) + 1;
+}
 
 let sChart = [['Sleep', 'Count']];
 
-let sleepRows = Array.isArray(sleepResult)
-  ? sleepResult
-  : sleepResult.values;
-
-for (let row of sleepRows) {
-  let s = row.sleepDuration ?? row[0];
-  let c = row.count ?? row[1];
-
-  sChart.push([String(s), Number(c)]);
+for (let key in sleepCount) {
+  sChart.push([String(key), Number(sleepCount[key])]);
 }
 
 drawGoogleChart({
@@ -35,34 +24,27 @@ drawGoogleChart({
 addMdToPage(`
 Många studenter sover relativt lite per natt.
 
-Sömn är en viktig faktor för mental hälsa,
-och för lite sömn kan öka risken för stress och depression.
+Vi ser att vissa sömnnivåer är vanligare än andra,
+vilket visar att många inte får tillräckligt med vila.
+
+Sömn är en av de viktigaste faktorerna för psykisk hälsa.
+För lite sömn kan leda till stress, sämre koncentration
+och ökad risk för depression.
 `);
 
+addMdToPage(`## Studietimmar`);
 
-// =======================
-// ⏱Studietimmar
-// =======================
+let hoursCount = {};
 
-addMdToPage(`##  Studietimmar`);
-
-let hoursResult = await dbQuery(`
-  SELECT workStudyHours, COUNT(*) as count
-  FROM student_depression
-  GROUP BY workStudyHours
-`);
+for (let s of students) {
+  let key = s.workStudyHours || "Unknown";
+  hoursCount[key] = (hoursCount[key] || 0) + 1;
+}
 
 let hChart = [['Hours', 'Count']];
 
-let hoursRows = Array.isArray(hoursResult)
-  ? hoursResult
-  : hoursResult.values;
-
-for (let row of hoursRows) {
-  let h = row.workStudyHours ?? row[0];
-  let c = row.count ?? row[1];
-
-  hChart.push([Number(h), Number(c)]);
+for (let key in hoursCount) {
+  hChart.push([Number(key), Number(hoursCount[key])]);
 }
 
 drawGoogleChart({
@@ -72,36 +54,28 @@ drawGoogleChart({
 
 // FÖRKLARING
 addMdToPage(`
-Många studenter studerar många timmar varje dag.
+Många studenter studerar flera timmar varje dag.
 
-Långa studietider kan leda till stress och trötthet,
-vilket i sin tur kan påverka den psykiska hälsan negativt.
+Vi ser att vissa nivåer av studietid är vanligare,
+vilket visar att många har hög arbetsbelastning.
+
+Långa studietider kan leda till trötthet och stress,
+vilket påverkar den mentala hälsan negativt över tid.
 `);
-
-
-// =======================
-// Kost
-// =======================
 
 addMdToPage(`## Kost`);
 
-let dietResult = await dbQuery(`
-  SELECT dietaryHabits, COUNT(*) as count
-  FROM student_depression
-  GROUP BY dietaryHabits
-`);
+let dietCount = {};
+
+for (let s of students) {
+  let key = s.dietaryHabits || "Unknown";
+  dietCount[key] = (dietCount[key] || 0) + 1;
+}
 
 let dChart = [['Diet', 'Count']];
 
-let dietRows = Array.isArray(dietResult)
-  ? dietResult
-  : dietResult.values;
-
-for (let row of dietRows) {
-  let d = row.dietaryHabits ?? row[0];
-  let c = row.count ?? row[1];
-
-  dChart.push([String(d), Number(c)]);
+for (let key in dietCount) {
+  dChart.push([String(key), Number(dietCount[key])]);
 }
 
 drawGoogleChart({
@@ -111,8 +85,10 @@ drawGoogleChart({
 
 // FÖRKLARING
 addMdToPage(`
-Kostvanor varierar mellan studenter.
+Studenters kostvanor varierar mellan olika grupper.
 
-Ohälsosam kost kan påverka energinivåer och koncentration,
-vilket kan bidra till sämre mental hälsa.
+Vissa äter mer hälsosamt medan andra har sämre matvanor.
+
+Kost påverkar både energi, koncentration och välmående.
+En ohälsosam kost kan bidra till trötthet och sämre psykisk hälsa.
 `);

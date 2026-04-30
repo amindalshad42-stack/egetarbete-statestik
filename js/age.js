@@ -1,11 +1,6 @@
 import { students } from './exports/initial-data.js';
 
-
-// =======================
-// 👥 Kön
-// =======================
-
-addMdToPage(`## 👥 Kön`);
+addMdToPage(`## Kön`);
 
 let genderCount = {};
 
@@ -25,7 +20,6 @@ drawGoogleChart({
   data: gChart
 });
 
-// FÖRKLARING
 addMdToPage(`
 I datasetet finns både män och kvinnor representerade.
 
@@ -35,12 +29,7 @@ Detta kan påverka analysen eftersom resultatet kan spegla mäns situation mer.
 Kön kan också påverka hur stress och depression upplevs.
 `);
 
-
-// =======================
-// 🎂 Ålder
-// =======================
-
-addMdToPage(`## 🎂 Ålder`);
+addMdToPage(`## Ålder`);
 
 let ageCount = {};
 
@@ -60,7 +49,6 @@ drawGoogleChart({
   data: aChart
 });
 
-// FÖRKLARING
 addMdToPage(`
 De flesta studenter är mellan 18 och 30 år.
 
